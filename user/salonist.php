@@ -132,7 +132,7 @@ unset($_SESSION['id']);
 										<p><b>'.$sname.'</b><br>'.$names.'<br>Email:'.$email.'<br>Tel:'.$phone.'</p>
 									</div>
 									<div class="card-action">
-										<a href="#">This is a link to <b>'.$row[4].'</b> profile</a>
+										<a href="#">This is a link to <b>'.$row[4].'\'s</b> profile</a>
 									</div>
 								</div>
 							</td>

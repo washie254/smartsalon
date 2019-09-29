@@ -1,6 +1,6 @@
 <?php 
-	
-session_start(); 
+include('server.php');	
+//session_start(); 
 
 if (!isset($_SESSION['username'])) {
 	$_SESSION['msg'] = "You must log in first";
@@ -85,13 +85,114 @@ unset($_SESSION['id']);
 </header>
 <div class="clearfix"></div>
 
+<!-- card stykes -->
+<style>
+	.w-20 {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 20%;
+	flex: 0 0 20%;
+	max-width: 20%;
+	}
 
+	@media (min-width: 576px) {
+	.w-sm-20 {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%;
+	}
+	}
+
+	@media (min-width: 768px) {
+	.w-md-20 {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%;
+	}
+	}
+
+	@media (min-width: 992px) {
+	.w-lg-20 {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%;
+	}
+	}
+
+	@media (min-width: 1200px) {
+	.w-xl-20 {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 20%;
+		flex: 0 0 20%;
+		max-width: 20%;
+	}
+	}
+</style>
 <section class="section intro">
 
 	<div class="container" id="approved">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
 			<h3>Styles Available</h3> 
 			<p> We can add styles we offer here </p>  
+		
+
+			<?php 
+			$user = $_SESSION['username'];
+			  $query0 = "SELECT * FROM styles ";
+			  $result0 = mysqli_query($db, $query0);
+			  
+			  $count=1;
+			  echo '<div class="card-group">';
+			  while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
+
+					echo '
+					<div class="col s12 m7">
+						<div class="card horizontal">
+		
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th sope="col">'.$row[3].'</th>
+									<th scope="col" colspan="2"><b>'.$row[2].'</b></th>
+								</tr>
+							</thead>
+							<tr>
+								<td tyle="width:50%">
+									<div class="card-image">
+										<img src="../salonist/styleimages/'.$row[1].'" style="width: 190px; height:160px;">
+									</div>
+								</td>
+								<td style="width:%">
+									<div class="card-stacked">
+										<div class="card-content">
+	
+											price : <b>'.number_format($row[4],2).'</b> Kshs<br>By: '.$row[7].'
+										</div>
+									</div>
+								</td>
+								<td>
+									<a href="#"><button class="btn btn-success">Contact</button><br>
+									<a href="#"><button class="btn btn-primary">Booking </button><br>
+									<a href="#"><button class="btn btn-secondary">Saloninfo</button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3">'.$row[5].'</td>
+							</tr>
+						</table>
+						</div><br>
+					</div><br>
+					';
+			  }
+			?>
+			
+
+
+
+
+
 		</div>
 	</div>
 	<br>
