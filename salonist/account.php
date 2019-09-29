@@ -380,9 +380,9 @@ unset($_SESSION['id']);
 		</div>		
 
 		<div class="three columns">
-			<h4>Some other Info</h4>
+			<h4>Add Hair Styles</h4>
 			<ul class="footer-links">
-				<li><a href="#">Kenya's Finest</a></li>
+				<li><a href="styles.php">Add Hairstyles</a></li>
 				<li><a href="#">More Systems by Me</a></li>
 
 			</ul>

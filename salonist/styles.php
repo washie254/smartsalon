@@ -1,6 +1,6 @@
 <?php 
-	
-session_start(); 
+include ('server.php');	
+//session_start(); 
 
 if (!isset($_SESSION['username'])) {
 	$_SESSION['msg'] = "You must log in first";
@@ -88,19 +88,133 @@ unset($_SESSION['id']);
 
 <section class="section intro">
 
-	<div class="container" id="approved">
-		<div style="padding: 6px 12px; border: 1px solid #ccc;">
-			<h3>add Styles</h3> 
-			<p> We can add styles we offer here </p>  
-		</div>
-	</div>
-	<br>
-	<div class="container" id="pending">
+	<div class="container" id="mystyles">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
 			<h3>My styles</h3> 
 			<p>Styles we add will be in this page </p>  
+
+
+			<?php 
+			$user = $_SESSION['username'];
+			  $query0 = "SELECT * FROM styles  WHERE salonistname='$user'";
+			  $result0 = mysqli_query($db, $query0);
+			  
+			  $count=1;
+			  echo '<div class="card-group">';
+			  while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
+				  echo '
+				  <div class="card" style="width:350px;">
+					  <img src="styleimages/'.$row[1].'" style="width:350px; height:280px;" class="card-img-top" alt="...">
+					  <div class="card-body">
+					  <h5 class="card-title"><b>'.$row[2].'</b></h5>
+					  <h5 class="card-title"><b>Price:  @ </b>'.number_format($row[4],2). ' Ksh</h5>
+					  <p class="card-text">'.$row[5].'</p>
+					  <p class="card-text"><small class="text-muted"><b>Category: </b>'.$row[3].' cnt : '.$count.'</small></p>
+					  </div>
+				  </div>';
+
+				 	 $count = $count + 1;
+			  		if ($count % 3 == 1){
+				  echo '<br>';
+				  }
+				  
+				echo  '&nbsp;&nbsp;&nbsp;';
+			
+			  }
+			  echo '</div>';
+			?>
+			
+			<!-- <div class="card-group">
+				<div class="card">
+					<img src="styleimages/" class="card-img-top" alt="...">
+					<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+					<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+					</div>
+				</div>
+				&nbsp;&nbsp;&nbsp;
+			</div> -->
+
+
 		</div>
 	</div>
+ <br>
+	<div class="container" id="addstyle">
+		<div style="padding: 6px 12px; border: 1px solid #ccc;">
+			<h3>add Styles</h3> 
+			<p> We can add styles we offer here </p>  
+
+			<!-- get salonist id and username -->
+			<?php 
+
+			   $userl = $_SESSION['username'];
+			   $query = "SELECT * FROM salonist WHERE username='$userl'";
+			   $result = mysqli_query($db, $query);
+			   
+			   while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+				$salonistid=$row[0];
+				$salonistname=$row[1];
+				$acntstat = $row[15];
+			   }
+			?>
+			<style>
+				.error {
+					width: 92%; 
+					margin: 0px auto; 
+					padding: 10px; 
+					border: 1px solid #a94442; 
+					color: #a94442; 
+					background: #f2dede; 
+					border-radius: 5px; 
+					text-align: left;
+				}
+			</style>
+			<?php if($acntstat != 'APPROVED'){
+				   echo '<p class="error"> Your Account is not APPROVED! <br>thus u cant add a style </p>';
+				}
+				?>
+			<form class="text-center border border-light p-5" action="styles.php" method="post" enctype="multipart/form-data" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+				<?php include('errors.php'); ?>
+				<!-- <p class="h4 mb-4">Add a new style </p> -->
+				<input name="acntstat" value="<?=$acntstat?>" style="opacity: 0;"/>
+				<input type="file" class="form-control mb-4" name="image">
+
+				<!-- style name -->
+				<input type="Text" id="name" class="form-control mb-4" name="sname" placeholder="Style Name">
+				<!-- category -->
+				<label>Category</label>
+				<?php
+					//$conn = new mysqli('localhost', 'root', '', 'mojor') 
+					///or die ('Cannot connect to db');                     
+					$result = $db->query("select id, name from hairCategories");
+					echo "<select name='scategory' id='category' class='form-control mb-4'>";
+						while ($row = $result->fetch_assoc()) {
+						unset($id, $name);
+						$id = $row['id'];
+						$name = $row['name']; 
+						echo '<option value="'.$name.'">'.$name.'</option>';      
+						}
+					echo "</select>";
+				?>
+				
+				<!-- price -->
+				<input type="number" id="price" class="form-control mb-4" name="sprice" placeholder="Price">
+
+				<!-- price -->
+				<textarea type="number" id="description" class="form-control mb-4" name="sdescription" placeholder="Insert a brief description"></textarea>
+				<input name="salonistname" value="<?=$salonistname?>" style="opacity: 0;"/>
+                <input name="salonistid" value="<?=$salonistid?>" style="opacity: 0;"/>
+				<!-- Sign in button -->
+				<button class="btn btn-success btn-block my-4"  name="add_style" type="submit">ADD STYLE</button>
+
+
+			</form>
+
+		</div>
+	</div>
+	<br>
+	
 
 </section>
 <br>

@@ -133,4 +133,48 @@
 
 
 	}
+
+
+	//ADD A STYLE 
+	// If upload button is clicked ...
+	if (isset($_POST['add_style'])) {
+
+		$sname = $_POST['sname'];
+		$scategory = $_POST['scategory'];
+		$sprice = $_POST['sprice'];	
+		$sdescription = $_POST['sdescription'];
+		$salonistname = $_POST['salonistname'];
+		$salonistid = $_POST['salonistid'];
+
+		$acntstat = $_POST['acntstat'];
+	
+		$image = $_FILES['image']['name'];
+		
+		$target = "styleimages/".basename($image);
+		
+		// Get text
+		//$image_text = mysqli_real_escape_string($db, $_POST['image_text']);
+		// image file directory
+		// Get image name
+		// form validation: ensure that the form is correctly filled
+		if (empty($sname)) { array_push($errors, "insert a style name"); }
+		if (empty($sprice)) { array_push($errors, "Add a price of the style"); }
+		if (empty($sdescription)) { array_push($errors, "insert a brief description about the style"); }
+		if (empty($_FILES['image']['name'])) { array_push($errors, "You have not chosen any image"); }
+		
+		if($acntstat != 'APPROVED'){ array_push($errors, "Your account is innactive"); }
+		if (count($errors) == 0) {
+		  $sql = "INSERT INTO styles (image, sname, scategory, sprice, sdescription, salonistid, salonistname) 
+								VALUES ('$image','$sname','$scategory','$sprice','$sdescription','$salonistid','$salonistname')";
+		  // execute query
+		  if(mysqli_query($db, $sql)){
+			header('location: styles.php');
+		  }
+		  if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+			$msg = "Image uploaded successfully";
+		  }else{
+			$msg = "Failed to upload image";
+		  }
+		}
+	}
 ?>
