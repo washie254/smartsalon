@@ -1,7 +1,9 @@
 <?php 
-include('server.php');	
+include('server.php');
 //session_start(); 
-  
+if (isset($_GET['id'])){
+    $styleid = $_GET['id'];
+}
 
 if (!isset($_SESSION['username'])) {
 	$_SESSION['msg'] = "You must log in first";
@@ -24,7 +26,7 @@ unset($_SESSION['id']);
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
-<title>Smart Salon</title>
+<title>Work Scout</title>
 
 <!-- Mobile Specific Metas
 ================================================== -->
@@ -61,11 +63,8 @@ unset($_SESSION['id']);
 		<nav id="navigation" class="menu">
 			<ul id="responsive">
 
-				<li><a href="index.php">Home</a> </li>
-				<li><a href="salonist.php">Salonists</a></li>
-				<li><a href="styles.php" id="current">styles</a></li>
-				<li><a href="account.php">Account</a> </li>
-				<li><a href="reports.php" >Reports</a></li>
+				<li><a href="styles.php"> <b><<[[ -- go back</b> </a> </li>
+				
 				<!-- <li><a href="blog.html">Blog</a></li> -->
 			</ul>
 
@@ -86,116 +85,62 @@ unset($_SESSION['id']);
 </header>
 <div class="clearfix"></div>
 
-<!-- card stykes -->
-<style>
-	.w-20 {
-	-webkit-box-flex: 0;
-	-ms-flex: 0 0 20%;
-	flex: 0 0 20%;
-	max-width: 20%;
-	}
 
-	@media (min-width: 576px) {
-	.w-sm-20 {
-		-webkit-box-flex: 0;
-		-ms-flex: 0 0 20%;
-		flex: 0 0 20%;
-		max-width: 20%;
-	}
-	}
-
-	@media (min-width: 768px) {
-	.w-md-20 {
-		-webkit-box-flex: 0;
-		-ms-flex: 0 0 20%;
-		flex: 0 0 20%;
-		max-width: 20%;
-	}
-	}
-
-	@media (min-width: 992px) {
-	.w-lg-20 {
-		-webkit-box-flex: 0;
-		-ms-flex: 0 0 20%;
-		flex: 0 0 20%;
-		max-width: 20%;
-	}
-	}
-
-	@media (min-width: 1200px) {
-	.w-xl-20 {
-		-webkit-box-flex: 0;
-		-ms-flex: 0 0 20%;
-		flex: 0 0 20%;
-		max-width: 20%;
-	}
-	}
-</style>
 <section class="section intro">
 
-	<div class="container" id="approved">
+	<div class="container">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
-			<h3>Styles Available</h3> 
-			<p> We can add styles we offer here </p>  
-		
-
-			<?php 
-			$user = $_SESSION['username'];
-			  $query0 = "SELECT * FROM styles ";
-			  $result0 = mysqli_query($db, $query0);
-			  
-			  $count=1;
-			  echo '<div class="card-group">';
-			  while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
-
-					echo '
-					<div class="col s12 m7">
-						<div class="card horizontal">
-		
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th sope="col">'.$row[3].'</th>
-									<th scope="col" colspan="2"><b>'.$row[2].'</b></th>
-								</tr>
-							</thead>
-							<tr>
-								<td tyle="width:50%">
-									<div class="card-image">
-										<img src="../salonist/styleimages/'.$row[1].'" style="width: 190px; height:160px;">
-									</div>
-								</td>
-								<td style="width:%">
-									<div class="card-stacked">
-										<div class="card-content">
-	
-											price : <b>'.number_format($row[4],2).'</b> Kshs<br>By: '.$row[7].'
-										</div>
-									</div>
-								</td>
-								<td>
-									<a href="booking.php?id='.$row[0].'"><button class="btn btn-success">Booking </button><br>
-									<a href="salonistinfo.php?id='.$row[7].'"><button class="btn btn-primary">Saloninfo</button>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="3">'.$row[5].'</td>
-							</tr>
-						</table>
-						</div><br>
-					</div><br>
-					';
-			  }
-			?>
-			
-
-
-
-
-
+			<h3>  Fill in the following details to make a booking  </h3>
 		</div>
 	</div>
 	<br>
+	
+	<div class="container" id="pending">
+		<div style="padding: 6px 12px; border: 1px solid #ccc;">
+            <?php 
+                $user = $_SESSION['username'];
+                $query0 = "SELECT * FROM styles WHERE id='$styleid' ";
+                $result0 = mysqli_query($db, $query0);
+                
+                $count=1;
+                echo '<div class="card-group">';
+                while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
+                    $styname = $row[2];
+                    $stycategory = $row[3];
+                    $styprice = number_format($row[4],2)." Ksh";
+                    $stydesc = $row[5]; 
+                    $stysalonist = $row[6]; 
+                }
+            ?>
+
+            <form action="booking.php" method="post" style="width:98%;">
+                <div class="form-group">
+                    <label>style information:</label><br>
+                    <label><b>Name:</b> <?=$styname?></label>&nbsp;&nbsp; || &nbsp;&nbsp;
+                    <label><b>Category:</b><?=$stycategory?></label> ||&nbsp;&nbsp;
+                    <label><b>Price:</b><?=$styprice?></label>|| &nbsp;&nbsp;
+                    <label><b>Salonist:</b><?=$stysalonist?></label><br>
+                    <label><b>booking hours:</b></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="Time Sample">Schedule your Booking</label><br>
+                    Date:<input type="date" class="form-control" name="pdate" id="date" >
+                    Time:<input type="time" class="form-control" name="ptime" id="date" >
+                </div>
+
+                <div class="form-group">
+                    <label for="Time Sample">Description</label>
+                    <textarea type="text" class="form-control" name="description" id="description" placeholder="Add a brief description  pertaining your booking"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" name="book" style="width:100%;">Make Booking</button>
+            </form>
+			
+		</div>
+	</div>
+
+	<br>
+
 
 </section>
 <br>
