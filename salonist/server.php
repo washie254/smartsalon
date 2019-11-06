@@ -9,7 +9,7 @@
 	$ctime = date("h:i:s");
 
 	// connect to database
-	$db = mysqli_connect('localhost', 'root', '', 'smart_salon');
+	$db = mysqli_connect('localhost', 'root', '', 'dkut_smart_salon');
 
 	// LOGIN ADMINISTRATOR
 	if (isset($_POST['login'])) {

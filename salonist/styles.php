@@ -98,7 +98,6 @@ unset($_SESSION['id']);
 			$user = $_SESSION['username'];
 			  $query0 = "SELECT * FROM styles  WHERE salonistname='$user'";
 			  $result0 = mysqli_query($db, $query0);
-			  
 			  $count=1;
 			  echo '<div class="card-group">';
 			  while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
@@ -106,10 +105,10 @@ unset($_SESSION['id']);
 				  <div class="card" style="width:350px;">
 					  <img src="styleimages/'.$row[1].'" style="width:350px; height:280px;" class="card-img-top" alt="...">
 					  <div class="card-body">
-					  <h5 class="card-title"><b>'.$row[2].'</b></h5>
-					  <h5 class="card-title"><b>Price:  @ </b>'.number_format($row[4],2). ' Ksh</h5>
-					  <p class="card-text">'.$row[5].'</p>
-					  <p class="card-text"><small class="text-muted"><b>Category: </b>'.$row[3].' cnt : '.$count.'</small></p>
+						<h5 class="card-title"><b>'.$row[2].'</b></h5>
+						<h5 class="card-title"><b>Price:  @ </b>'.number_format($row[4],2). ' Ksh</h5>
+						<p class="card-text">'.$row[5].'</p>
+						<p class="card-text"><small class="text-muted"><b>Category: </b>'.$row[3].' cnt : '.$count.'</small></p>
 					  </div>
 				  </div>';
 
