@@ -203,4 +203,29 @@
 		  }
 		}
 	}
+
+	//approve_booking
+	if (isset($_POST['reject_booking'])) {
+
+		$reason = $_POST['reason'];
+		$bookid = $_POST['bookid'];
+		$stat = 'REJECTED';
+
+		// form validation: ensure that the form is correctly filled
+		if (empty($reason)) { array_push($errors, "Add reason for rejecting the booking"); }
+		
+		if (count($errors) == 0) {
+		  $sql = "UPDATE bookings
+					  SET reasonforrejection = '$reason',
+							status = '$stat'
+						WHERE id='$bookid' ";
+		  // execute query
+		  if(mysqli_query($db, $sql)){
+			header('location: requests.php');
+		  }
+		  else{
+			  echo 'some err occurred !!';
+		  }
+		}
+	}
 ?>

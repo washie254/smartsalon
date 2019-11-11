@@ -67,7 +67,7 @@ if (isset($_GET['logout'])) {
 				<!-- <li><a href="blog.html">Blog</a></li> -->
 			</ul>
             <ul class="float-center">
-                <li><button type="button" class="btn btn-success" style="width:100%" >. [  APPROVE REQUEST  ]  . </button>  </li>
+                <li><button type="button" class="btn btn-success" style="width:100%" >. [  REJECT REQUEST  ]  . </button>  </li>
             </ul>
 			<ul class="float-right">
                
@@ -122,7 +122,7 @@ if (isset($_GET['logout'])) {
 					text-align: left;
 				}
 			</style>
-			<form class="text-center border border-light p-5" action="approve.php" method="post" action = "approve.php">
+			<form class="text-center border border-light p-5" method="post" action = "reject.php">
 				<?php include('errors.php'); ?>
 				<!-- <p class="h4 mb-4">Add a new style </p> -->
 				<!-- style name -->
@@ -130,11 +130,11 @@ if (isset($_GET['logout'])) {
                 <textarea disabled><?=$description?> <?="\n\n"?>preferred date :<?=$preferedtime?></textarea><br>
 			
 				<!-- Remarks -->
-				<label>Add Remarks</label>
-				<textarea type="number" id="remarks" class="form-control mb-4" name="remarks" placeholder="Insert a brief remark for your client, eg pertaining availabiliy or requirements"></textarea>
+				<label>Add Reason for rejecting</label>
+				<textarea type="number" id="remarks" class="form-control mb-4" name="reason" placeholder="insert a reason for rejecting"></textarea>
 				<input name="bookid" value="<?=$bid?>" style="opacity: 0;"/>
 				<!-- Sign in button -->
-				<button class="btn btn-success btn-block my-4"  name="approve_booking" type="submit">Approve Booking</button>
+				<button class="btn btn-success btn-block my-4"  name="reject_booking" type="submit">Reject Booking</button>
 
 			</form>
 

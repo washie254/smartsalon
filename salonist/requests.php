@@ -163,6 +163,58 @@ unset($_SESSION['id']);
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
 			<h3>Rejected requests | Bookings</h3> 
 			<p>Saloonists Whoes accounts have been rejaected</p>  
+			<table class="table table-stipped">
+                    <thead>
+                        <tr>
+                            <th sope="col">bid</th>
+							<th scope="col">Client</th>
+                            <th scope="col">Bk. day</th>
+                            <th scope="col"> Perefered Date & Time</th>
+                            <th scope="col"> Style </th>
+                            <th scope="col"> Reason</th>
+                            <th scope="col"> Status</th>
+							<th scope="col"> Accept</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+					<!-- [ LOOP THE REGISTERED AGENTS ] -->
+					<?php
+                    $user = $_SESSION["username"];
+					$sql = "SELECT * FROM bookings WHERE salonist ='$user' AND status='REJECTED' ";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+						$names = $row[1]." ".$row[2];
+						$loca = $row[6].", ".$row[5];
+
+						$sty = $row[3];
+						
+						$sql0 = "SELECT * FROM styles WHERE id ='$sty'";
+						$result0 = mysqli_query($db, $sql0);
+						while($rowz = mysqli_fetch_array($result0, MYSQLI_NUM))
+						{	
+							$styname = $rowz[2];
+							$stycate = $rowz[3];
+						}
+						
+
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; // E ID 
+							echo '<td>'.$row[1].'</td> '; // E ID 
+							echo '<td>'.$row[4]." At ".$row[5].'</td> '; //names
+							echo '<td>'.$row[6]." At ".$row[7].'</td> '; //email
+							echo '<td>'.$styname.'</td> '; //telno
+							echo '<td>'.$row[11].'</td> '; //id number
+							echo '<td>'.$row[10].'</td> '; //location
+							echo '<td>
+									<a href="approve.php?id='.$row[0].'"><strong><button type="button" class="btn btn-success">Approve</button>
+								</td> '; //location
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+                </table> 
 		</div>
 	</div>
 
@@ -214,7 +266,7 @@ unset($_SESSION['id']);
 							echo '<td>'.$row[9].'</td> '; //id number
 							echo '<td>'.$row[10].'</td> '; //location
 							echo '<td>
-									<a href="approve.php?id='.$row[0].'"><strong><button type="button" class="btn btn-primary">mark as complete</button>
+									<a href="#"><strong><button type="button" class="btn btn-primary">mark as complete</button>
 								</td> '; //location
 						echo '</tr>';
 					}
