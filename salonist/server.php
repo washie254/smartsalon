@@ -178,4 +178,29 @@
 		  }
 		}
 	}
+
+	//approve_booking
+	if (isset($_POST['approve_booking'])) {
+
+		$remarks = $_POST['remarks'];
+		$bookid = $_POST['bookid'];
+		$stat = 'APPROVED';
+
+		// form validation: ensure that the form is correctly filled
+		if (empty($remarks)) { array_push($errors, "Add some remarks for the booking"); }
+		
+		if (count($errors) == 0) {
+		  $sql = "UPDATE bookings
+					  SET salonistreply = '$remarks',
+							status = '$stat'
+						WHERE id='$bookid' ";
+		  // execute query
+		  if(mysqli_query($db, $sql)){
+			header('location: requests.php');
+		  }
+		  else{
+			  echo 'some errr occurred !!';
+		  }
+		}
+	}
 ?>
