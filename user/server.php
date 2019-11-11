@@ -1,12 +1,13 @@
 <?php 
+	date_default_timezone_set("Africa/Nairobi");
 	session_start();
 	// variable declaration
 	$username = "";
 	$email    = "";
 	$errors = array(); 
 	$_SESSION['success'] = "";
-	$cdate = date("Y-m-d");
-	$ctime = date("h:i:s");
+	$cdate = date("Y-d-m");
+	$ctime = date("h:i a");
 
 	// connect to database
 	$db = mysqli_connect('localhost', 'root', '', 'dkut_smart_salon');
@@ -54,6 +55,9 @@
 			array_push($errors, "The two passwords do not match");
 		}
 
+		$sql_u = "SELECT * FROM users WHERE username='$username'";
+		$res_u = mysqli_query($db, $sql_u);
+		if (mysqli_num_rows($res_u) > 0) { array_push($errors, "Sorry Username has already been taken"); }
 		if (count($errors) == 0) {
 			$password = md5($password_1);//encrypt the password before saving in the database
 			$query = "INSERT INTO users (username, email, password,datecreated) 
@@ -121,5 +125,36 @@
 		}
 
 
+	}
+
+	//OOK A SESSION
+	if (isset($_POST['book'])) {
+		$user = mysqli_real_escape_string($db, $_POST['user']);
+		$salonist = mysqli_real_escape_string($db,$_POST['salonist']);
+		$styleid = mysqli_real_escape_string($db, $_POST['styleid']);
+		$otfrom = mysqli_real_escape_string($db, $_POST['otfrom']);
+		$otto= mysqli_real_escape_string($db, $_POST['otto']);
+		$bdate = mysqli_real_escape_string($db, $_POST['bdate']);
+		$btime = mysqli_real_escape_string($db, $_POST['btime']);
+		$bdescription = mysqli_real_escape_string($db, $_POST['bdescription']);
+		$status = 'PENDING';
+		
+		// if ($bdate < $cdate ) { array_push($errors, "You Cant selext a date of the past"); }
+		if (strtotime($bdate) < time()) { array_push($errors, "date is in the past");  }
+		if (empty($bdescription)) { array_push($errors, "Add a brief description"); }
+
+		// $date1 = DateTime::createFromFormat('H:i:s', $btime);
+		// $date2 = DateTime::createFromFormat('H:i:s', $otfrom);
+		// $date3 = DateTime::createFromFormat('H:i:s', $otto);
+		// if (!($date1 > $date2 && $date1 < $date3 )) {array_push($errors, "Salonist not available at selected timee");}
+
+		if (count($errors) == 0) {
+			// $password = md5($password_1);//encrypt the password before saving in the database
+			 $query = "INSERT INTO bookings (username, salonist, styleid, datebooked, timeboked, prefereddate, preferdtime, description, status) 
+		 						VALUES('$user','$salonist','$styleid', '$cdate','$ctime','$bdate','$btime','$bdescription','$status')";
+			mysqli_query($db, $query);
+
+			header('location: account.php');
+		}
 	}
 ?>

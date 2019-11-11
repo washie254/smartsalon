@@ -1,6 +1,6 @@
 <?php 
-	
-session_start(); 
+include('server.php');
+//session_start(); 
 
 if (!isset($_SESSION['username'])) {
 	$_SESSION['msg'] = "You must log in first";
@@ -23,7 +23,7 @@ unset($_SESSION['id']);
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
-<title>Work Scout</title>
+<title>Smart Salon</title>
 
 <!-- Mobile Specific Metas
 ================================================== -->
@@ -101,7 +101,60 @@ unset($_SESSION['id']);
 	<div class="container" id="pending">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
 			<h3>Application Requests & Bokings</h3> 
-			<p>The following are requests from your clients</p>  
+			<p>The following are requests from your clients</p> 
+			<table class="table table-stipped">
+                    <thead>
+                        <tr>
+                            <th sope="col">bid</th>
+							<th scope="col">Client</th>
+                            <th scope="col">Bk. day</th>
+                            <th scope="col"> Perefered Date & Time</th>
+                            <th scope="col"> Style </th>
+                            <th scope="col"> Salonist </th>
+                            <th scope="col"> Status</th>
+							<th scope="col"> Accept</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+					<!-- [ LOOP THE REGISTERED AGENTS ] -->
+					<?php
+                    $user = $_SESSION["username"];
+					$sql = "SELECT * FROM bookings WHERE salonist ='$user' ";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+						$names = $row[1]." ".$row[2];
+						$loca = $row[6].", ".$row[5];
+
+						$sty = $row[3];
+						
+						$sql0 = "SELECT * FROM styles WHERE id ='$sty'";
+						$result0 = mysqli_query($db, $sql0);
+						while($rowz = mysqli_fetch_array($result0, MYSQLI_NUM))
+						{	
+							$styname = $rowz[2];
+							$stycate = $rowz[3];
+						}
+						
+
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; // E ID 
+							echo '<td>'.$row[1].'</td> '; // E ID 
+							echo '<td>'.$row[4]." At ".$row[5].'</td> '; //names
+							echo '<td>'.$row[6]." At ".$row[7].'</td> '; //email
+							echo '<td>'.$styname.'</td> '; //telno
+							echo '<td>'.$row[2].'</td> '; //id number
+							echo '<td>'.$row[10].'</td> '; //location
+							echo '<td>
+									<a href="approve.php?id='.$row[0].'"><strong><button type="button" class="btn btn-success">Approve</button>
+									<a href="reject.php?id='.$row[0].'"><strong><button type="button" class="btn btn-danger">Reject</button>
+								</td> '; //location
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+                </table> 
 		</div>
 	</div>
 

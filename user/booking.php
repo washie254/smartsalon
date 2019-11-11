@@ -101,37 +101,67 @@ unset($_SESSION['id']);
                 $user = $_SESSION['username'];
                 $query0 = "SELECT * FROM styles WHERE id='$styleid' ";
                 $result0 = mysqli_query($db, $query0);
-                
-                $count=1;
-                echo '<div class="card-group">';
+
                 while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
+                    // $styid = $row[0];
                     $styname = $row[2];
                     $stycategory = $row[3];
                     $styprice = number_format($row[4],2)." Ksh";
                     $stydesc = $row[5]; 
-                    $stysalonist = $row[6]; 
+                    $stysalonistid = $row[6]; 
+                    $stysalonist = $row[7];
+                    
+                }
+            ?>
+            <?php 
+                $query1 = "SELECT * FROM salonist WHERE id='$stysalonistid' ";
+                $result1 = mysqli_query($db, $query1);
+            
+                while($row = mysqli_fetch_array($result1, MYSQLI_NUM)){
+                   $workinghours = "From ".$row[10]." To ".$row[11]; 
+                   $otfrom = $row[10];
+                   $otto = $row[11];
                 }
             ?>
 
+            <style>
+            .error {
+                width: 92%; 
+                margin: 0px auto; 
+                padding: 10px; 
+                border: 1px solid #a94442; 
+                color: #a94442; 
+                background: #f2dede; 
+                border-radius: 5px; 
+                text-align: left;
+            }
+            </style>
             <form action="booking.php" method="post" style="width:98%;">
+                <?php include('errors.php')?>
                 <div class="form-group">
                     <label>style information:</label><br>
                     <label><b>Name:</b> <?=$styname?></label>&nbsp;&nbsp; || &nbsp;&nbsp;
                     <label><b>Category:</b><?=$stycategory?></label> ||&nbsp;&nbsp;
                     <label><b>Price:</b><?=$styprice?></label>|| &nbsp;&nbsp;
-                    <label><b>Salonist:</b><?=$stysalonist?></label><br>
-                    <label><b>booking hours:</b></label>
+                    <label><b>Salonistid:</b><?=$stysalonistid?></label>|| &nbsp;&nbsp;
+                    <label><b>SalonistName:</b><?=$stysalonist?></label>|| &nbsp;&nbsp;<br>
+                    <label><b>booking hours:</b><?=$workinghours?></label>
+                    <input type="hidden" name="user" value="<?php echo $user; ?>">
+                    <input type="hidden" name="salonist" value="<?php echo $stysalonist; ?>">
+                    <input type="hidden" name="styleid" value="<?php echo $styleid; ?>">
+                    <input type="hidden" name="otfrom" value="<?php echo $otfrom; ?>">
+                    <input type="hidden" name="otto" value="<?php echo $otto; ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="Time Sample">Schedule your Booking</label><br>
-                    Date:<input type="date" class="form-control" name="pdate" id="date" >
-                    Time:<input type="time" class="form-control" name="ptime" id="date" >
+                    Date:<input type="date" class="form-control" name="bdate" id="date" >
+                    Time:<input type="time" class="form-control" name="btime" id="date" >
                 </div>
 
                 <div class="form-group">
                     <label for="Time Sample">Description</label>
-                    <textarea type="text" class="form-control" name="description" id="description" placeholder="Add a brief description  pertaining your booking"></textarea>
+                    <textarea type="text" class="form-control" name="bdescription" id="description" placeholder="Add a brief description  pertaining your booking"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" name="book" style="width:100%;">Make Booking</button>
             </form>

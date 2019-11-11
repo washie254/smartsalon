@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Registration system PHP and MySQL</title>
+	<title>Salonist Login</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 
 	<div class="header">
-		<h2>Login</h2>
+		<h2>Salonist | Login</h2>
 	</div>
 	
 	<form method="post" action="login.php">

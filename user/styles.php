@@ -174,7 +174,7 @@ unset($_SESSION['id']);
 									</div>
 								</td>
 								<td>
-									<a href="booking.php?id='.$row[0].'"><button class="btn btn-success">Booking </button><br>
+									<a href="booking.php?id='.$row[0].'"><button class="btn btn-success">Book </button><br>
 									<a href="salonistinfo.php?id='.$row[7].'"><button class="btn btn-primary">Saloninfo</button>
 								</td>
 							</tr>

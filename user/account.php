@@ -57,7 +57,7 @@ unset($_SESSION['id']);
 	<!-- :::::::::: get currently logedin USER DETAILS :::::::::::::::::::: -->
 	<?php
 	  $username = $_SESSION['username'];
-	  $con = mysqli_connect('localhost', 'root', '', 'blood_donation_system');
+	    
 	  $query = "SELECT * FROM users WHERE username='$username'";
 	  $result = mysqli_query($db, $query);
 	  while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
@@ -285,8 +285,42 @@ unset($_SESSION['id']);
 
             <div id="Tokyo" class="tabcontent">
                 <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
-                <h3>Summary</h3>
-                <p>some Summary .</p>
+                <h3>Bookings Summary</h3>
+                <p>Summary of bookings and their status</p>
+                <table class="table table-stipped">
+                    <thead>
+                        <tr>
+                            <th sope="col">bid</th>
+                            <th scope="col">Bk. day</th>
+                            <th scope="col"> Perefered Date & Time</th>
+                            <th scope="col"> Style </th>
+                            <th scope="col"> Salonist </th>
+                            <th scope="col"> Status</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+					<!-- [ LOOP THE REGISTERED AGENTS ] -->
+					<?php
+                    $user = $_SESSION["username"];
+					$sql = "SELECT * FROM bookings WHERE username ='$user' ";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+						$names = $row[1]." ".$row[2];
+						$loca = $row[6].", ".$row[5];
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; // E ID 
+							echo '<td>'.$row[4]." At ".$row[5].'</td> '; //names
+							echo '<td>'.$row[6]." At ".$row[7].'</td> '; //email
+							echo '<td>'.$row[3].'</td> '; //telno
+							echo '<td>'.$row[2].'</td> '; //id number
+							echo '<td>'.$row[10].'</td> '; //location
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+                </table>
             </div>
 
             <script>
