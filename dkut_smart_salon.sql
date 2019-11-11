@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2019 at 10:01 AM
+-- Generation Time: Nov 11, 2019 at 02:47 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -59,17 +59,18 @@ CREATE TABLE `bookings` (
   `preferdtime` time NOT NULL,
   `description` varchar(255) NOT NULL,
   `salonistreply` varchar(255) NOT NULL,
-  `status` varchar(40) NOT NULL
+  `status` varchar(40) NOT NULL,
+  `reasonforrejection` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bookings`
 --
 
-INSERT INTO `bookings` (`id`, `username`, `salonist`, `styleid`, `datebooked`, `timeboked`, `prefereddate`, `preferdtime`, `description`, `salonistreply`, `status`) VALUES
-(1, 'user1', 'salonist1', 1, '0000-00-00', '03:08:00', '2019-11-15', '10:10:00', 'i need a quick makeover', '', 'PENDING'),
-(2, 'user1', 'salonist1', 2, '2019-07-11', '03:10:00', '2019-11-29', '10:10:00', 'i would like to have an afro', '', 'PENDING'),
-(3, 'user1', 'salonist1', 1, '2019-07-11', '03:30:00', '2019-11-15', '12:12:00', 'a quick braids job', '', 'PENDING');
+INSERT INTO `bookings` (`id`, `username`, `salonist`, `styleid`, `datebooked`, `timeboked`, `prefereddate`, `preferdtime`, `description`, `salonistreply`, `status`, `reasonforrejection`) VALUES
+(1, 'user1', 'salonist1', 1, '0000-00-00', '03:08:00', '2019-11-15', '10:10:00', 'i need a quick makeover', '', 'REJECTED', 'incapable of identifying the date of your booking'),
+(2, 'user1', 'salonist1', 2, '2019-07-11', '03:10:00', '2019-11-29', '10:10:00', 'i would like to have an afro', 'okay, kindly keep time since i have allocated you that slot ', 'APPROVED', ''),
+(3, 'user1', 'salonist1', 1, '2019-07-11', '03:30:00', '2019-11-15', '12:12:00', 'a quick braids job', '', 'PENDING', '');
 
 -- --------------------------------------------------------
 
