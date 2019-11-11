@@ -102,15 +102,17 @@ unset($_SESSION['id']);
 			  echo '<div class="card-group">';
 			  while($row = mysqli_fetch_array($result0, MYSQLI_NUM)){
 				  echo '
-				  <div class="card" style="width:350px;">
-					  <img src="styleimages/'.$row[1].'" style="width:350px; height:280px;" class="card-img-top" alt="...">
-					  <div class="card-body">
-						<h5 class="card-title"><b>'.$row[2].'</b></h5>
-						<h5 class="card-title"><b>Price:  @ </b>'.number_format($row[4],2). ' Ksh</h5>
-						<p class="card-text">'.$row[5].'</p>
-						<p class="card-text"><small class="text-muted"><b>Category: </b>'.$row[3].' cnt : '.$count.'</small></p>
-					  </div>
-				  </div>';
+					<div class="col-sm-3">
+						<div class="card">
+							<img src="styleimages/'.$row[1].'" style="width:300px; height:200px;" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title"><b>'.$row[2].'</b></h5>
+								<h5 class="card-title"><b>Price:  @ </b>'.number_format($row[4],2). ' Ksh</h5>
+								<p class="card-text">'.$row[5].'</p>
+								<p class="card-text"><small class="text-muted"><b>Category: </b>'.$row[3].' cnt : '.$count.'</small></p>
+							</div>
+						</div>
+					</div>';
 
 				 	 $count = $count + 1;
 			  		if ($count % 3 == 1){
