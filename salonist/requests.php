@@ -53,7 +53,7 @@ unset($_SESSION['id']);
 	
 		<!-- Logo -->
 		<div id="logo">
-			<h1><a href="index.html"><img src="images/logo.png" alt="Work Scout" /></a></h1>
+			<h1><a href="index.html"><img src="images/logo.png" alt="Smart Salon" /></a></h1>
 		</div>
 
 		<!-- Menu -->
@@ -280,11 +280,6 @@ unset($_SESSION['id']);
 <br>
 <div class="clearfix"></div>
 <!-- Infobox -->
-<div class="infobox">
-	<div class="container">
-		<div class="sixteen columns">Smartr Salon Dashboard <a href="#">ADMIN</a></div>
-	</div>
-</div>
 
 
 

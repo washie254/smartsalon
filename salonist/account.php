@@ -57,7 +57,7 @@ unset($_SESSION['id']);
 	<!-- :::::::::: get currently logedin USER DETAILS :::::::::::::::::::: -->
 	<?php
 	  $username = $_SESSION['username'];
-	  $con = mysqli_connect('localhost', 'root', '', 'blood_donation_system');
+	  
 	  $query = "SELECT * FROM salonist WHERE username='$username'";
 	  $result = mysqli_query($db, $query);
 	  while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
@@ -336,12 +336,6 @@ unset($_SESSION['id']);
 <br>
 <div class="clearfix"></div>
 <!-- Infobox -->
-<div class="infobox">
-	<div class="container">
-		<div class="sixteen columns">Smartr Salon Dashboard <a href="#">ADMIN</a></div>
-	</div>
-</div>
-
 
 
 <!-- Footer

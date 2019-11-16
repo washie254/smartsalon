@@ -89,7 +89,7 @@ unset($_SESSION['id']);
 <section class="section intro">
 
 	<div class="container" id="mystyles">
-		<div style="padding: 6px 12px; border: 1px solid #ccc;">
+		<div style="padding: 1px 1px; border: 1px solid #ccc;">
 			<h3>My styles</h3> 
 			<p>Styles we add will be in this page </p>  
 

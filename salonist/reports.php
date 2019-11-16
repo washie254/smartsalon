@@ -23,7 +23,7 @@ unset($_SESSION['id']);
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
-<title>Work Scout</title>
+<title>Smart Salon</title>
 
 <!-- Mobile Specific Metas
 ================================================== -->
@@ -90,7 +90,7 @@ unset($_SESSION['id']);
 
 	<div class="container">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
-			QUICK LINKS:   A summary of the comleted a and pending tasks will be here
+			QUICK LINKS:   A summary of the completed and the pending tasks will be hear
 		</div>
 	</div>
 	<br>
@@ -99,8 +99,8 @@ unset($_SESSION['id']);
 	<br>
 	<div class="container" id="approved">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
-			<h3>Approved Saloonist Accounts</h3> 
-			<p> The Following are the Approved accounts </p>  
+			<h3>Account  Highlights</h3> 
+			<p> Highlights on the accounts</p>  
 		</div>
 	</div>
 
@@ -108,11 +108,7 @@ unset($_SESSION['id']);
 <br>
 <div class="clearfix"></div>
 <!-- Infobox -->
-<div class="infobox">
-	<div class="container">
-		<div class="sixteen columns">Smartr Salon Dashboard <a href="#">ADMIN</a></div>
-	</div>
-</div>
+
 
 
 

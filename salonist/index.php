@@ -23,7 +23,7 @@ unset($_SESSION['id']);
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
-<title>Work Scout</title>
+<title>Smart Salon</title>
 
 <!-- Mobile Specific Metas
 ================================================== -->
@@ -150,11 +150,11 @@ unset($_SESSION['id']);
 
 
 <!-- Infobox -->
-<div class="infobox">
+<!-- <div class="infobox">
 	<div class="container">
 		<div class="sixteen columns">Smartr Salon Dashboard <a href="#">ADMIN</a></div>
 	</div>
-</div>
+</div> -->
 
 
 
