@@ -1,11 +1,11 @@
 <?php 
-	
-session_start(); 
+include ('server.php');	
+//session_start(); 
 
-// if (!isset($_SESSION['username'])) {
-// 	$_SESSION['msg'] = "You must log in first";
-// 	header('location: login.php');
-// }
+if (!isset($_SESSION['username'])) {
+	$_SESSION['msg'] = "You must log in first";
+	header('location: login.php');
+}
 
 if (isset($_GET['logout'])) {
 	session_destroy();
@@ -23,7 +23,7 @@ unset($_SESSION['id']);
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
-<title>Smart Salon</title>
+<title>Work Scout</title>
 
 <!-- Mobile Specific Metas
 ================================================== -->
@@ -60,15 +60,18 @@ unset($_SESSION['id']);
 		<nav id="navigation" class="menu">
 			<ul id="responsive">
 
-				<li><a href="index.php" id="current">Home</a> </li>
-				<li><a href="salonist.php">Salonists</a></li>
-				<li><a href="styles.php">styles</a></li>
-				<li><a href="account.php">Account</a> </li>
+                <li><a href="index.php" >Home</a> </li>
+				<li><a href="requests.php">Manage Requests</a></li>
+				<li><a href="styles.php" id="current">Portfolio</a></li>
+				<li><a href="account.php">Account</a></li>
 				<li><a href="reports.php">Reports</a></li>
 				<!-- <li><a href="blog.html">Blog</a></li> -->
 			</ul>
 
-
+			<ul class="float-right">
+				<li><a href="#"><?=$_SESSION["username"]?></a></li>
+				<li><a href="index.php?logout='1'" style="color: red;">logout</a></li>
+			</ul>
 
 		</nav>
 
@@ -83,73 +86,96 @@ unset($_SESSION['id']);
 <div class="clearfix"></div>
 
 
-<!-- Banner
-================================================== -->
+<section class="section intro">
+
+	<div class="container" id="mystyles">
+		<div style="padding: 1px 1px; border: 1px solid #ccc;">
+			<h3>Add more styles</h3> 
+			<a href="addstyles.php"><button class="btn btn-primary">ADD STYLES</button></a>
+		</div>
+        <br>
+	<div class="container" id="addstyle">
+		<div style="padding: 6px 12px; border: 1px solid #ccc;">
+			<h3>add Styles</h3> 
+			<p> We can add styles we offer here </p>  
+
+			<!-- get salonist id and username -->
+			<?php 
+
+			   $userl = $_SESSION['username'];
+			   $query = "SELECT * FROM salonist WHERE username='$userl'";
+			   $result = mysqli_query($db, $query);
+			   
+			   while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+				$salonistid=$row[0];
+				$salonistname=$row[1];
+				$acntstat = $row[15];
+			   }
+			?>
+			<style>
+				.error {
+					width: 92%; 
+					margin: 0px auto; 
+					padding: 10px; 
+					border: 1px solid #a94442; 
+					color: #a94442; 
+					background: #f2dede; 
+					border-radius: 5px; 
+					text-align: left;
+				}
+			</style>
+			<?php if($acntstat != 'APPROVED'){
+				   echo '<p class="error"> Your Account is not APPROVED! <br>thus u cant add a style </p>';
+				}
+				?>
+			<form class="text-center border border-light p-5" action="addstyles.php" method="post" enctype="multipart/form-data" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+				<?php include('errors.php'); ?>
+				<!-- <p class="h4 mb-4">Add a new style </p> -->
+				<input name="acntstat" value="<?=$acntstat?>" style="opacity: 0;"/>
+				<input type="file" class="form-control mb-4" name="image">
+
+				<!-- style name -->
+				<input type="Text" id="name" class="form-control mb-4" name="sname" placeholder="Style Name">
+				<!-- category -->
+				<label>Category</label>
+				<?php
+					//$conn = new mysqli('localhost', 'root', '', 'mojor') 
+					///or die ('Cannot connect to db');                     
+					$result = $db->query("select id, name from hairCategories");
+					echo "<select name='scategory' id='category' class='form-control mb-4'>";
+						while ($row = $result->fetch_assoc()) {
+						unset($id, $name);
+						$id = $row['id'];
+						$name = $row['name']; 
+						echo '<option value="'.$name.'">'.$name.'</option>';      
+						}
+					echo "</select>";
+				?>
+				
+				<!-- price -->
+				<input type="number" id="price" class="form-control mb-4" name="sprice" placeholder="Price">
+
+				<!-- price -->
+				<textarea type="number" id="description" class="form-control mb-4" name="sdescription" placeholder="Insert a brief description"></textarea>
+				<input name="salonistname" value="<?=$salonistname?>" style="opacity: 0;"/>
+                <input name="salonistid" value="<?=$salonistid?>" style="opacity: 0;"/>
+				<!-- Sign in button -->
+				<button class="btn btn-success btn-block my-4"  name="add_style" type="submit">ADD STYLE</button>
 
 
+			</form>
 
-<!-- Content
-================================================== -->
-
-<!-- Categories -->
-<div class="container">
-	<div class="sixteen columns">
-		<h3 class="margin-bottom-25">Popular Categories</h3>
-		<ul id="popular-categories">
-			<li><a href="salonist.php"><i class="fa fa-user"></i>saloonist | Practitioners</a></li>
-			<li><a href="account.php"><i class="fa fa-user"></i> Account Information</a></li>
-			<li><a href="styles.php"><i class="fa fa-graduation-cap"></i>Available Styles</a></li>
-			<li><a href="reports.php"><i class="fa fa-line-chart trigger_popup_fricc"></i>Reports</a></li>
-			<!-- <li><a href="#"><i class="fa fa-medkit"></i> Healthcare</a></li>
-			<li><a href="#"><i class="fa fa-cutlery"></i> Restaurant / Food Service</a></li>
-			<li><a href="#"><i class="fa fa-globe"></i> Transportation / Logistics</a></li>-->
-			<!-- <li><a href="#"><i class="fa fa-laptop"></i> Telecommunications</a></li>  -->
-		</ul>
-
-		<div class="clearfix"></div>
-		<div class="margin-top-30"></div>
-
-		<a href="#" class="button centered">Other Functions</a>
-		<div class="margin-bottom-50"></div>
-	</div>
-</div>
-
-
-
-
-<!-- Testimonials -->
-<div id="testimonials">
-	<!-- Slider -->
-	<div class="container">
-		<div class="sixteen columns">
-			<div class="testimonials-slider">
-				  <ul class="slides">
-				    <li>
-				      <p>A saloonist art is via the complexity of the design and flow of the style
-				      <span>No 1 , nose</span></p>
-				    </li>
-
-				    <li>
-				      <p>Mgala muue, na haki yake umpe. 
-				      <span>Mwarabu Fulani</span></p>
-				    </li>
-				    
-				    <li>
-				      <p> the art of beauty is the unverse' untold perfection 
-				      <span>Tom Smith</span></p>
-				    </li>
-
-				  </ul>
-			</div>
 		</div>
 	</div>
-</div>
 
-
+		
+</section>
+<br>
+<div class="clearfix"></div>
 <!-- Infobox -->
 <div class="infobox">
 	<div class="container">
-		<div class="sixteen columns">Smartr Salon Dashboard <a href="#">User</a></div>
+		<div class="sixteen columns">Smartr Salon Dashboard <a href="#">ADMIN</a></div>
 	</div>
 </div>
 
@@ -174,7 +200,7 @@ unset($_SESSION['id']);
 			<h4>Company</h4>
 			<ul class="footer-links">
 				<li><a href="users.php">users</a></li>
-				<li><a href="saloonists.php">saloonist</a></li>
+				<li><a href="saloonists.php">saloonists</a></li>
 				<li><a href="index.php">Home</a></li>
 			</ul>
 		</div>

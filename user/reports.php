@@ -34,6 +34,8 @@ unset($_SESSION['id']);
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/colors/green.css" id="colors">
 <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="tabs.css">
+<script type="text/javascript" src="tabs.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +88,45 @@ unset($_SESSION['id']);
 <div class="clearfix"></div>
 
 
-<section class="section intro">
+<section class="section intro"> 
 
 	<div class="container">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
-			QUICK LINKS:   A summary of the bookings and orders
+		  A summary of the bookings and orders.
 		</div>
 	</div>
 	<br>
 
+	<div class="container">
+	<p>Here you can vi
+    <!-- Tab links -->
+    <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'Activedistributors')">Active Distributors</button>
+    <button class="tablinks" onclick="openCity(event, 'Addagents')">Innactive Distributors</button>
+    <button class="tablinks" onclick="openCity(event, 'Departments')">Distributors</button>
+    </div>
+
+    <!-- Tab content -->
+    	<div id="Activedistributors" class="tabcontent">
+			<h3>Active Distributors</h3>
+			<p>the following are the distributors whoes accounts are approved and are active </p>
+		</div>
+
+    	<div id="Addagents" class="tabcontent">
+			<h3>Innactive Distributors</h3>
+
+    	</div>
+
+		<div id="Departments" class="tabcontent">
+			<h3>Distributors Summary | Highlights</h3>
+			
+		</div> 
+    <div>
+	<br>
 </section>
+
+
+
 <br>
 <div class="clearfix"></div>
 <!-- Infobox -->

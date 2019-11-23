@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2019 at 02:47 PM
+-- Generation Time: Nov 23, 2019 at 10:41 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -70,7 +70,8 @@ CREATE TABLE `bookings` (
 INSERT INTO `bookings` (`id`, `username`, `salonist`, `styleid`, `datebooked`, `timeboked`, `prefereddate`, `preferdtime`, `description`, `salonistreply`, `status`, `reasonforrejection`) VALUES
 (1, 'user1', 'salonist1', 1, '0000-00-00', '03:08:00', '2019-11-15', '10:10:00', 'i need a quick makeover', '', 'REJECTED', 'incapable of identifying the date of your booking'),
 (2, 'user1', 'salonist1', 2, '2019-07-11', '03:10:00', '2019-11-29', '10:10:00', 'i would like to have an afro', 'okay, kindly keep time since i have allocated you that slot ', 'APPROVED', ''),
-(3, 'user1', 'salonist1', 1, '2019-07-11', '03:30:00', '2019-11-15', '12:12:00', 'a quick braids job', '', 'PENDING', '');
+(3, 'user1', 'salonist1', 1, '2019-07-11', '03:30:00', '2019-11-15', '12:12:00', 'a quick braids job', '', 'REJECTED', 'im busy that time try another time '),
+(4, 'user1', 'salonist1', 5, '0000-00-00', '12:00:00', '2019-11-28', '10:20:00', 'i need a nice make over', 'have received your order. lets meet then', 'APPROVED', '');
 
 -- --------------------------------------------------------
 
@@ -154,7 +155,8 @@ INSERT INTO `styles` (`id`, `image`, `sname`, `scategory`, `sprice`, `sdescripti
 (3, '7.jpg', 'Semi Blonde', 'Blonde', 4000, 'semi blonde hairstyle to suit all ladies in the wild', 1, 'salonist1'),
 (4, 'b9.jpg', 'baby locks', 'Short Cut', 3000, 'this is an amazingly new style to enable you to get that new look that you have always wanted', 1, 'salonist1'),
 (5, 'b1.jpg', 'smart braids', 'Braids', 3000, 'some description about the hairstyle ', 1, 'salonist1'),
-(6, 'b10.jpg', 'bond', 'Curls', 2000, 'some some stuff', 1, 'salonist1');
+(6, 'b10.jpg', 'bond', 'Curls', 2000, 'some some stuff', 1, 'salonist1'),
+(7, 'maxresdefault.jpg', 'maajabu ', 'Blonde', 2000, 'some maajabu description', 1, 'salonist1');
 
 -- --------------------------------------------------------
 
@@ -187,15 +189,17 @@ CREATE TABLE `users` (
   `datecreated` date NOT NULL,
   `fname` varchar(255) NOT NULL,
   `lname` varchar(255) NOT NULL,
-  `gender` varchar(255) NOT NULL
+  `gender` varchar(255) NOT NULL,
+  `lat` float NOT NULL,
+  `lng` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `telno`, `datecreated`, `fname`, `lname`, `gender`) VALUES
-(1, 'user1', 'user1@gmail.com', '24c9e15e52afc47c225b757e7bee1f9d', '0744454565', '2019-09-12', 'jannet', 'arika ', 'Male');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `telno`, `datecreated`, `fname`, `lname`, `gender`, `lat`, `lng`) VALUES
+(1, 'user1', 'user1@gmail.com', '24c9e15e52afc47c225b757e7bee1f9d', '0744454565', '2019-09-12', 'jannet', 'arika ', 'Male', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -257,7 +261,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `haircategories`
@@ -275,7 +279,7 @@ ALTER TABLE `salonist`
 -- AUTO_INCREMENT for table `styles`
 --
 ALTER TABLE `styles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `userprofile`

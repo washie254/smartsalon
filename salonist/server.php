@@ -7,7 +7,7 @@
 	$errors = array(); 
 	$_SESSION['success'] = "";
 	$cdate = date("Y-m-d");
-	$ctime = date("h:i:s");
+	$ctime = date("h:i a");
 
 	// connect to database
 	$db = mysqli_connect('localhost', 'root', '', 'dkut_smart_salon');
@@ -228,4 +228,8 @@
 		  }
 		}
 	}
+
+	//MARK AS BOOKING COMPLETED 
+
+	
 ?>

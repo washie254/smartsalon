@@ -138,16 +138,13 @@
 		$btime = mysqli_real_escape_string($db, $_POST['btime']);
 		$bdescription = mysqli_real_escape_string($db, $_POST['bdescription']);
 		$status = 'PENDING';
+		$cdate = date("Y-m-d");
 		
 		// if ($bdate < $cdate ) { array_push($errors, "You Cant selext a date of the past"); }
 		if (strtotime($bdate) < time()) { array_push($errors, "date is in the past");  }
 		if (empty($bdescription)) { array_push($errors, "Add a brief description"); }
 
-		// $date1 = DateTime::createFromFormat('H:i:s', $btime);
-		// $date2 = DateTime::createFromFormat('H:i:s', $otfrom);
-		// $date3 = DateTime::createFromFormat('H:i:s', $otto);
-		// if (!($date1 > $date2 && $date1 < $date3 )) {array_push($errors, "Salonist not available at selected timee");}
-
+	
 		if (count($errors) == 0) {
 			// $password = md5($password_1);//encrypt the password before saving in the database
 			 $query = "INSERT INTO bookings (username, salonist, styleid, datebooked, timeboked, prefereddate, preferdtime, description, status) 
@@ -157,4 +154,7 @@
 			header('location: account.php');
 		}
 	}
+
+
+	//AFFIRM COMPLETION & review
 ?>
