@@ -10,9 +10,9 @@ if (!isset($_SESSION['username'])) {
 
 if (isset($_GET['logout'])) {
 	session_destroy();
-unset($_SESSION['username']);
-unset($_SESSION['id']);
-	header("location: login.php");
+    unset($_SESSION['username']);
+    unset($_SESSION['id']);
+    header("location: ../");
 }
 ?>
 
@@ -440,7 +440,6 @@ unset($_SESSION['id']);
 		<div class="sixteen columns">Smartr Salon Dashboard <a href="#">USER</a></div>
 	</div>
 </div>
-
 
 
 <!-- Footer

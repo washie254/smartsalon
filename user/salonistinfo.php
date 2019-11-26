@@ -14,7 +14,7 @@ if (isset($_GET['logout'])) {
 	session_destroy();
     unset($_SESSION['username']);
     unset($_SESSION['id']);
-	header("location: login.php");
+	header("location: ../");
 }
 ?>
 <?php
@@ -27,7 +27,9 @@ if (isset($_GET['logout'])) {
         $salonname = $row[6]; //salon name
         $salcategory = $row[7];//category
         $saltel = $row[8]; //telephone
-        $sallocation = $row[9];// location 
+		$sallocation = $row[9];// location 
+		$sallat = $row[12];
+		$sallng = $row[12];
         $salcoords = $row[12].", ".$row[13]; //sal coords 
         $salworkinghours = "<b>From : </b>".$row[10]." <b> To: </b>".$row[11];  
         $saldatecreated = $row[14];
@@ -64,7 +66,13 @@ if (isset($_GET['logout'])) {
 
 <body>
 <div id="wrapper">
-
+<style>   
+    /* Set the size of the div element that contains the map */
+    #map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+    }
+</style>
 
 <!-- Header
 ================================================== -->
@@ -182,6 +190,49 @@ if (isset($_GET['logout'])) {
             </td>
         </tr>
     </table>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yA5YuLgx_YR4klxs93zoS9Ez7onQF6k"></script>
+    <script>
+      // In this example, we center the map, and add a marker, using a LatLng object
+      // literal instead of a google.maps.LatLng object. LatLng object literals are
+      // a convenient way to add a LatLng coordinate and, in most cases, can be used
+      // in place of a google.maps.LatLng object.
+
+      var map;
+      function initialize() {
+        var mapOptions = {
+          zoom: 14,
+		  center: {lat:-1.28696, lng: 36.8353}
+        //   center: {lat: -34.397, lng: 150.644}
+        };
+        map = new google.maps.Map(document.getElementById('map'),
+            mapOptions);
+
+        var marker = new google.maps.Marker({
+          // The below line is equivalent to writing:
+          // position: new google.maps.LatLng(-34.397, 150.644)
+          position: {lat:-1.28696, lng: 36.8353},
+          map: map
+        });
+
+        // You can use a LatLng literal in place of a google.maps.LatLng object when
+        // creating the Marker object. Once the Marker object is instantiated, its
+        // position will be available as a google.maps.LatLng object. In this case,
+        // we retrieve the marker's position using the
+        // google.maps.LatLng.getPosition() method.
+        var infowindow = new google.maps.InfoWindow({
+          content: '<p>Marker Location:' + marker.getPosition() + '</p>'
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(map, marker);
+        });
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+	<div id="map"></div>
+
 </section>
 <br>
 <div class="clearfix"></div>

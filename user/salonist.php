@@ -9,9 +9,9 @@ if (!isset($_SESSION['username'])) {
 
 if (isset($_GET['logout'])) {
 	session_destroy();
-unset($_SESSION['username']);
-unset($_SESSION['id']);
-	header("location: login.php");
+	unset($_SESSION['username']);
+	unset($_SESSION['id']);
+	header("location: ../");
 }
 ?>
 
@@ -132,12 +132,12 @@ unset($_SESSION['id']);
 										<p><b>'.$sname.'</b><br>'.$names.'<br>Email:'.$email.'<br>Tel:'.$phone.'</p>
 									</div>
 									<div class="card-action">
-										<a href="#">This is a link to <b>'.$row[4].'\'s</b> profile</a>
+										<a href="salonistinfo.php?id='.$row[1].'">This is a link to <b>'.$row[4].'\'s</b> profile</a>
 									</div>
 								</div>
 							</td>
 							<td>
-								<a href="#"><button class="btn btn-success">CONTACT</button>
+								<a href="salonistinfo.php?id='.$row[1].'"><button class="btn btn-success">CONTACT</button>
 							</td>
 						</tr>
 					</table>
