@@ -167,6 +167,7 @@ if (isset($_GET['logout'])) {
     ;                   $query2 = "SELECT * FROM salonist WHERE username='$user'";
                         $result2 = mysqli_query($db, $query2);
                         while($row = mysqli_fetch_array($result2, MYSQLI_NUM)){
+                            $salid = $row[0]; 
                             $names = $row[4]." ".$row[5];
                             $salonname = $row[6];
                             $location = $row[9];
@@ -303,7 +304,26 @@ if (isset($_GET['logout'])) {
             <div id="Tokyo" class="tabcontent">
                 <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
                 <h3>MORE INFO</h3>
-                <p> hajh hj hajhaj .</p>
+                <p> Upload your Identity Card Will be reviewed for Account Approval.</p>
+                
+                <form class="form-group" action="account.php"  enctype="multipart/form-data" method="post" style="width:98%;" >
+                    <?php include('errors.php');?>
+                    <input name="salonid" value="<?=$salid?>" style="opacity: 0.2;" readonly/>
+                    <div class="form-group">	
+                        <div class="col-xs-6">
+                            <label for="em_tImage"><h4>Attach Image</h4></label>
+                            <input type="file" class="form-control" name="image" id="emTitle" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <br>
+                            <button class="btn btn-lg btn-success" type="submit" name="UploadId"><i class="glyphicon glyphicon-ok-sign"></i> Upload ID</button>
+                        </div>
+                    </div>
+						
+				</form>
             </div>
 
             <script>

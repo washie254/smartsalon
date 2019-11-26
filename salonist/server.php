@@ -253,4 +253,29 @@
 		  }
 		}
 	}
+
+	//UPLOAD ID
+	if (isset($_POST['UploadId'])) {
+		
+		$salonid= $_POST['salonid'];
+		$image = $_FILES['image']['name'];
+		$target = "IDS/".basename($image);
+
+
+		$sql ="UPDATE salonist
+					SET idimage='$image'
+					WHERE id='$salonid'";
+		mysqli_query($db, $sql);
+
+		if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+			$msg = "Image uploaded successfully";
+			header('location: account.php');
+		}else{
+		$msg = "Failed to upload image";
+		header('location: account.php');
+		}
+		header('location: account.php');
+
+		
+	}
 ?>
