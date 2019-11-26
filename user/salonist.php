@@ -2,10 +2,10 @@
 include('server.php');
 //session_start(); 
 
-if (!isset($_SESSION['username'])) {
-	$_SESSION['msg'] = "You must log in first";
-	header('location: login.php');
-}
+// if (!isset($_SESSION['username'])) {
+// 	$_SESSION['msg'] = "You must log in first";
+// 	header('location: login.php');
+// }
 
 if (isset($_GET['logout'])) {
 	session_destroy();
@@ -68,10 +68,10 @@ if (isset($_GET['logout'])) {
 				<!-- <li><a href="blog.html">Blog</a></li> -->
 			</ul>
 
-			<ul class="float-right">
+			<!-- <ul class="float-right">
 				<li><a href="#"><?=$_SESSION["username"]?></a></li>
 				<li><a href="index.php?logout='1'" style="color: red;">logout</a></li>
-			</ul>
+			</ul> -->
 
 		</nav>
 
