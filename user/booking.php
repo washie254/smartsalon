@@ -56,7 +56,7 @@ if (isset($_GET['logout'])) {
 	
 		<!-- Logo -->
 		<div id="logo">
-			<h1><a href="index.html"><img src="images/logo.png" alt="Work Scout" /></a></h1>
+			<h1><a href="index.php"><img src="images/logo.png" alt="Work Scout" /></a></h1>
 		</div>
 
 		<!-- Menu -->

@@ -1,6 +1,6 @@
 <?php 
-	
-session_start(); 
+include('server.php');	
+//session_start(); 
 
 if (!isset($_SESSION['username'])) {
 	$_SESSION['msg'] = "You must log in first";
@@ -54,7 +54,7 @@ if (isset($_GET['logout'])) {
 	
 		<!-- Logo -->
 		<div id="logo">
-			<h1><a href="index.html"><img src="images/logo.png" alt="Work Scout" /></a></h1>
+			<h1><a href="index.php"><img src="images/logo.png" alt="Work Scout" /></a></h1>
 		</div>
 
 		<!-- Menu -->
@@ -64,7 +64,7 @@ if (isset($_GET['logout'])) {
 				<li><a href="index.php">Home</a> </li>
 				<li><a href="saloonists.php" >saloonist</a></li>
 				<li><a href="users.php" id="current">Users</a></li>
-				<li><a href="#">Reports</a></li>
+				<li><a href="reports.php">Reports</a></li>
 				<!-- <li><a href="blog.html">Blog</a></li> -->
 			</ul>
 
@@ -91,9 +91,7 @@ if (isset($_GET['logout'])) {
 	<div class="container">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
 			QUICK LINKS:   
-			<a href="#pending"><button type="button" class="btn btn-outline-secondary">Pending </button></a>
-			<a href="#approved"><button type="button" class="btn btn-outline-secondary">Approved </button></a>
-			<a href="#rejected"><button type="button" class="btn btn-outline-secondary">Rejected </button></a>
+			<a href="#pending"><button type="button" class="btn btn-outline-secondary">All Users </button></a>
 		</div>
 	</div>
 	<br>
@@ -102,11 +100,47 @@ if (isset($_GET['logout'])) {
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
 			<h3>Applications</h3> 
 			<p>The following are the accounts pending approval</p> 
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+					<th scope="col">U.Id</th>
+					<th scope="col">Username </th>
+					<th scope="col">Names</th>
+					<th scope="col">Email</th>
+					<th scope="col">Telephone</th>
+					<th scope="col">Gender </th>
+					<th scope="col">Date Created</th>
+					
+					</tr>
+				</thead>
+				<tbody>
+					<!-- [ LOOP THE REGISTERED AGENTS ] -->
+					<?php
+
+					$sql = "SELECT * FROM users";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+					
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; // l ID 
+							echo '<td>'.$row[1].'</td> '; //MEM ID
+							echo '<td>'.$row[6]." ".$row[7].'</td> '; //MEM USERNAME
+							echo '<td>'.$row[2].'</td> '; //Amount
+							echo '<td>'.$row[4].'</td> '; //Amount
+							echo '<td>'.$row[8].'</td> '; //DATE APPLIED
+							echo '<td>'.$row[5].'</td> '; //DATE APPLIED
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+			</table>
+
 		</div>
 	</div>
 
 	<br>
-	<div class="container" id="rejected">
+	<!-- <div class="container" id="rejected">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
 			<h3>Rejected Accounts</h3> 
 			<p>Saloonists Whoes accounts have been rejaected</p>  
@@ -119,7 +153,7 @@ if (isset($_GET['logout'])) {
 			<h3>Approved Saloonist Accounts</h3> 
 			<p> The Following are the Approved accounts </p>  
 		</div>
-	</div>
+	</div> -->
 
 </section>
 <br>

@@ -54,7 +54,7 @@ if (isset($_GET['logout'])) {
 	
 		<!-- Logo -->
 		<div id="logo">
-			<h1><a href="index.html"><img src="images/logo.png" alt="Work Scout" /></a></h1>
+			<h1><a href="index.php"><img src="images/logo.png" alt="Work Scout" /></a></h1>
 		</div>
 
 		<!-- Menu -->
@@ -64,7 +64,7 @@ if (isset($_GET['logout'])) {
 				<li><a href="index.php" id="current">Home</a> </li>
 				<li><a href="saloonists.php">saloonist</a></li>
 				<li><a href="users.php">Users</a></li>
-				<li><a href="#">Reports</a></li>
+				<li><a href="reports.php">Reports</a></li>
 				<!-- <li><a href="blog.html">Blog</a></li> -->
 			</ul>
 
@@ -99,10 +99,10 @@ if (isset($_GET['logout'])) {
 	<div class="sixteen columns">
 		<h3 class="margin-bottom-25">Popular Categories</h3>
 		<ul id="popular-categories">
-			<li><a href="#"><i class="fa fa-line-chart trigger_popup_fricc"></i>View Reports</a></li>
+			<li><a href="reports.php"><i class="fa fa-line-chart trigger_popup_fricc"></i>View Reports</a></li>
 			<li><a href="users.php"><i class="fa fa-building-o"></i> Registered Users</a></li>
 			<li><a href="saloonists.php"><i class="fa fa-graduation-cap"></i>Saloonists</a></li>
-			<li><a href="#"><i class="fa fa-laptop"></i> Telecommunications</a></li> 
+			<li><a href="users.php"><i class="fa fa-users"></i> Users</a></li> 
 		</ul>
 
 		<div class="clearfix"></div>

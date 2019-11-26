@@ -21,6 +21,7 @@ if (isset($_GET['logout'])) {
     $query2 = "SELECT * FROM salonist  WHERE username='$salonistname'";
     $result2 = mysqli_query($db, $query2);
     while($row = mysqli_fetch_array($result2, MYSQLI_NUM)){
+		$salid = $row[0];
         $salusername = $row[1]; //useername
         $salemail = $row[2]; //email
         $salnames = $row[4]." ".$row[5]; //4,5
@@ -69,8 +70,8 @@ if (isset($_GET['logout'])) {
 <style>   
     /* Set the size of the div element that contains the map */
     #map {
-    height: 400px;  /* The height is 400 pixels */
-    width: 100%;  /* The width is the width of the web page */
+    height: 100%;  /* The height is 400 pixels */
+    width: 98%;  /* The width is the width of the web page */
     }
 </style>
 
@@ -82,7 +83,7 @@ if (isset($_GET['logout'])) {
 	
 		<!-- Logo -->
 		<div id="logo">
-			<h1><a href="index.html"><img src="images/logo.png" alt="Work Scout" /></a></h1>
+			<h1><a href="index.php"><img src="images/logo.png" alt="Work Scout" /></a></h1>
 		</div>
 
 		<!-- Menu -->
@@ -230,8 +231,62 @@ if (isset($_GET['logout'])) {
 
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
+<div class="row">
+	<div class="col-sm-4" style="height: 460px; width:98%;">Map 
+		<div id="map"></div>
+	</div>
+  <div class="col-sm-8" style="height: 100%; width: 98%; background: rgba(25,100,25,0.5);"><h1>User Ratings</h1>
+  	<div style="overflow: auto; max-height: 400px;">
+	  <?php
+	  	
+	  	$query3 = "SELECT * FROM ratings  WHERE salonistid='$salid'";
+		$result3 = mysqli_query($db, $query3);
+		$count=0;
+		$tr=0;
+		while($rows = mysqli_fetch_array($result3, MYSQLI_NUM)){
+			$styleid =  $rows[2];
+			$review  =  $rows[3];
+			$client  =  $rows[4];
+			$rating  =  $rows[5];
+			
+			
+			$que = "SELECT * FROM users WHERE id='$client'";
+			$re = mysqli_query($db, $que);
+			while($ro = mysqli_fetch_array($re, MYSQLI_NUM)){
+				$clientname = $ro[1];
+			}
+			echo'
+				<div class="card border-success mb-3" style="max-width: 99%;">
+					<div class="card-header"><b>'.$clientname.'</b>Rating ::  <b>'.$rating.' / 5 </b></div>
+					<div class="card-body text-success">
+						<h5 class="card-title"> Style: '.$styleid.'</h5>
+						<p class="card-text">'.$review.'</p>
+					</div>
+				</div>
+			
+			';
 
-	<div id="map"></div>
+
+			$tr = $tr+$rating;
+			$count ++;
+		}
+		
+		
+		?>
+	</div>
+	<?php if($tr==0){
+			echo "<b style='color:white;'>Salonist Has not been rated yet !!</b>";
+		}else{
+			$AVG = $tr/$count;
+			echo '<b style="color:white;"> Average rating : <?=$AVG?> /  5 <b>';
+		}
+	?>
+    
+  
+  </div>
+  
+</div>
+	
 
 </section>
 <br>

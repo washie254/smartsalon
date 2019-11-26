@@ -3,7 +3,7 @@
 $server = 'localhost';
 $user = 'root';
 $pass = '';
-$db = 'smart_salon';
+$db = 'dkut_smart_salon';
 
 // connect to the database
 $mysqli = new mysqli($server, $user, $pass, $db);

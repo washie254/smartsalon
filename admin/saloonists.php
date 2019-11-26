@@ -54,7 +54,7 @@ if (isset($_GET['logout'])) {
 	
 		<!-- Logo -->
 		<div id="logo">
-			<h1><a href="index.html"><img src="images/logo.png" alt="Work Scout" /></a></h1>
+			<h1><a href="index.php"><img src="images/logo.png" alt="Work Scout" /></a></h1>
 		</div>
 
 		<!-- Menu -->
@@ -64,7 +64,7 @@ if (isset($_GET['logout'])) {
 				<li><a href="index.php">Home</a> </li>
 				<li><a href="saloonists.php" id="current">saloonist</a></li>
 				<li><a href="users.php">Users</a></li>
-				<li><a href="#">Reports</a></li>
+				<li><a href="reports.php">Reports</a></li>
 				<!-- <li><a href="blog.html">Blog</a></li> -->
 			</ul>
 
@@ -129,8 +129,8 @@ if (isset($_GET['logout'])) {
 							echo '<td>'.$row[4].' '.$row[5].'</td> '; //MEM USERNAME
 							echo '<td>'.$row[9].'<br>LatLng:'.$row[12].','.$row[13].'</td> '; //Amount
 							echo '<td>'.$row[14].'</td> '; //DATE APPLIED
-							echo '<td><a href="approves.php?id=' . $row[0] . '"><button class="btn btn-success">APPROVE</button></a> 
-							<a href="rejects.php?id=' . $row[0] . '"><button class="btn btn-danger">REJECT</button></a></td>'; //Purpose
+							echo '<td><a href="approves.php?id='.$row[0] .'"><button class="btn btn-success">APPROVE</button></a> 
+									<a href="rejects.php?id=' . $row[0] . '"><button class="btn btn-danger">REJECT</button></a></td>'; //Purpose
 						echo '</tr>';
 					}
 					?>

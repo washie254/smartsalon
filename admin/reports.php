@@ -23,7 +23,7 @@ if (isset($_GET['logout'])) {
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
-<title>Work Scout</title>
+<title>Smart Salon</title>
 
 <!-- Mobile Specific Metas
 ================================================== -->
@@ -35,6 +35,7 @@ if (isset($_GET['logout'])) {
 <link rel="stylesheet" href="css/colors/green.css" id="colors">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
 <!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
@@ -61,10 +62,9 @@ if (isset($_GET['logout'])) {
 			<ul id="responsive">
 
 				<li><a href="index.php">Home</a> </li>
-				<li><a href="salonist.php" id="current">Salonists</a></li>
-				<li><a href="styles.php" >styles</a></li>
-				<li><a href="account.php">Account</a> </li>
-				<li><a href="reports.php" >Reports</a></li>
+				<li><a href="saloonists.php">saloonist</a></li>
+				<li><a href="users.php">Users</a></li>
+				<li><a href="reports.php" id="current">Reports</a></li>
 				<!-- <li><a href="blog.html">Blog</a></li> -->
 			</ul>
 
@@ -90,71 +90,140 @@ if (isset($_GET['logout'])) {
 
 	<div class="container">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
-			<h3>  The following are the approved Salonists in the System  </h3>
+			QUICK LINKS:   
+			<a href="#pending"><button type="button" class="btn btn-outline-secondary">Salonist Accounts </button></a>
+			<a href="#approved"><button type="button" class="btn btn-outline-secondary">Bookings</button></a>
+			<a href="#rejected"><button type="button" class="btn btn-outline-secondary">User Accounts</button></a>
 		</div>
 	</div>
 	<br>
 	
 	<div class="container" id="pending">
 		<div style="padding: 6px 12px; border: 1px solid #ccc;">
-			..
-			
-			<?php
-				$sql = "SELECT * FROM salonist WHERE status='APPROVED'";
-				$result = mysqli_query($db, $sql);
-				while($row = mysqli_fetch_array($result, MYSQLI_NUM))
-				{	
-					$names = $row[4]." ".$row[5];
-					$email = $row[2];
-					$sname = $row[1];
-					$phone = $row[8];
-					echo '
-					<div class="col s12 m7">
-					<div class="card horizontal">
-	
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th sope="col">Avatar</th>
-								<th scope="col">Information</th>
-								<th scope="col"></th>
-							</tr>
-						</thead>
-						<tr>
-							<td>
-								<div class="card-image">
-									<img src="images/avatar0.png" style="width: 80px; height:80px;">
-								</div>
-							</td>
-							<td>
-								<div class="card-stacked">
-									<div class="card-content">
-										<p><b>'.$sname.'</b><br>'.$names.'<br>Email:'.$email.'<br>Tel:'.$phone.'</p>
-									</div>
-									<div class="card-action">
-										<a href="salonistinfo.php?id='.$row[1].'">This is a link to <b>'.$row[4].'\'s</b> profile</a>
-									</div>
-								</div>
-							</td>
-							<td>
-								<a href="salonistinfo.php?id='.$row[1].'"><button class="btn btn-success">CONTACT</button>
-							</td>
-						</tr>
-					</table>
-					</div>
-				</div><br>
-					';
-				}
+			<h3>Salonists Accounts</h3> 
+			<p>The following shows the registeredsalonist accounts and their account status</p>  
 
-			?>
-			
-            
-			.. 
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+					<th scope="col">S.Id</th>
+					<th scope="col">Username </th>
+					<th scope="col">Names</th>
+					<th scope="col">location</th>
+					<th scope="col">Date Created</th>
+					<th scope="col">Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+
+					$sql = "SELECT * FROM salonist ORDER BY status";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+					
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; // l ID 
+							echo '<td>'.$row[1].'</td> '; //MEM ID
+							echo '<td>'.$row[4].' '.$row[5].'</td> '; //MEM USERNAME
+							echo '<td>'.$row[9].'<br>LatLng:'.$row[12].','.$row[13].'</td> '; //Amount
+							echo '<td>'.$row[14].'</td> '; //DATE APPLIED
+							echo '<td>'.$row[15].'</td> ';
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+			</table>
+
 		</div>
 	</div>
 
 	<br>
+	<div class="container" id="rejected">
+		<div style="padding: 6px 12px; border: 1px solid #ccc;">
+			<h3>Registered Users</h3> 
+			<p>The following showcasess the registered user accounts in the system</p>  
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+					<th scope="col">U.Id</th>
+					<th scope="col">Username </th>
+					<th scope="col">Names</th>
+					<th scope="col">Email</th>
+					<th scope="col">Telephone</th>
+					<th scope="col">Gender </th>
+					<th scope="col">Date Created</th>
+					
+					</tr>
+				</thead>
+				<tbody>
+					<!-- [ LOOP THE REGISTERED AGENTS ] -->
+					<?php
 
+					$sql = "SELECT * FROM users";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+					
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; // l ID 
+							echo '<td>'.$row[1].'</td> '; //MEM ID
+							echo '<td>'.$row[6]." ".$row[7].'</td> '; //MEM USERNAME
+							echo '<td>'.$row[2].'</td> '; //Amount
+							echo '<td>'.$row[4].'</td> '; //Amount
+							echo '<td>'.$row[8].'</td> '; //DATE APPLIED
+							echo '<td>'.$row[5].'</td> '; //DATE APPLIED
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<br>
+	<div class="container" id="approved">
+		<div style="padding: 6px 12px; border: 1px solid #ccc;">
+			<h3>Bookings Made</h3> 
+			<p> The following higlights the bookings made through the system and their current status</p>  
+		</div>
+		<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+					<th scope="col">S.Id</th>
+					<th scope="col">User </th>
+					<th scope="col">Salonist</th>
+					<th scope="col">Style ID</th>
+					<th scope="col">Date Booked</th>
+					<th scope="col">Time Booked</th>
+					<th scope="col">Status</th>
+					<!-- <th scope="col">Action</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<!-- [ LOOP THE REGISTERED AGENTS ] -->
+					<?php
+
+					$sql = "SELECT * FROM bookings ORDER BY status ";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+					
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; 
+							echo '<td>'.$row[1].'</td> '; 
+							echo '<td>'.$row[2].'</td> '; 
+							echo '<td>'.$row[3].'</td> '; 
+							echo '<td>'.$row[4].'</td> '; 
+							echo '<td>'.$row[5].'</td> '; 
+							echo '<td>'.$row[10].'</td> '; 
+							
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+			</table>
+	</div>
 
 </section>
 <br>
@@ -162,7 +231,7 @@ if (isset($_GET['logout'])) {
 <!-- Infobox -->
 <div class="infobox">
 	<div class="container">
-		<div class="sixteen columns">Smartr Salon Dashboard <a href="#">USER</a></div>
+		<div class="sixteen columns">Smartr Salon Dashboard <a href="#">ADMIN</a></div>
 	</div>
 </div>
 
