@@ -157,4 +157,31 @@
 
 
 	//AFFIRM COMPLETION & review
+		if (isset($_POST['mcomplete'])) {
+			$clienid = $_POST['cid'];
+			$remarks= $_POST['bdescription'];
+			$rating=$_POST['rating'];
+			$sid = $_POST['sid'];
+			$salid = $_POST['salid'];
+
+			$bid = $_POST['bid'];
+			$stat = 'COMPLETE';
+	
+			// form validation: ensure that the form is correctly filled
+			if (empty($bid)) { array_push($errors, "Could not resolve the booking ID"); }
+			
+			if (count($errors) == 0) {
+			  $sql = "UPDATE bookings SET status = '$stat' WHERE id='$bid' ";
+			  if(mysqli_query($db, $sql)){
+
+				$sql2= "INSERT INTO ratings (styleid, salonistid, review, clienid, rating) VALUES ('$sid','$salid','$remarks','$clienid','$rating')";
+				mysqli_query($db, $sql2);
+
+				header('location: account.php');
+			  }
+			  else{
+				  echo 'some err occurred !!';
+			  }
+			}
+		}
 ?>

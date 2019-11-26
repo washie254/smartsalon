@@ -143,6 +143,7 @@ unset($_SESSION['id']);
                 <button class="tablinks" onclick="openCity(event, 'View')" id="defaultOpen">View Profile</button>
                 <button class="tablinks" onclick="openCity(event, 'Update')">Update Profile</button>
                 <button class="tablinks" onclick="openCity(event, 'Tokyo')">My Requests</button>
+                <button class="tablinks" onclick="openCity(event, 'Approve')">Completed </button>
             </div>
 
             <div id="View" class="tabcontent">
@@ -304,6 +305,87 @@ unset($_SESSION['id']);
 					<?php
                     $user = $_SESSION["username"];
 					$sql = "SELECT * FROM bookings WHERE username ='$user' ";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+						$names = $row[1]." ".$row[2];
+						$loca = $row[6].", ".$row[5];
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; // E ID 
+							echo '<td>'.$row[4]." At ".$row[5].'</td> '; //names
+							echo '<td>'.$row[6]." At ".$row[7].'</td> '; //email
+							echo '<td>'.$row[3].'</td> '; //telno
+							echo '<td>'.$row[2].'</td> '; //id number
+							echo '<td>'.$row[10].'</td> '; //location
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+                </table>
+            </div>
+            <div id="Approve" class="tabcontent">
+                <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+                <h3>Completed</h3>
+                <p>Summary of bookings that have been completed but You have not yet confirmed their completion</p>
+                <table class="table table-stipped">
+                    <thead>
+                        <tr>
+                            <th sope="col">bid</th>
+                            <th scope="col">Bk. day</th>
+                            <th scope="col"> Perefered Date & Time</th>
+                            <th scope="col"> Style </th>
+                            <th scope="col"> Salonist </th>
+                            <th scope="col"> Status</th>
+                            <th scope="col"> Confirm Completion</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+					<!-- [ LOOP THE REGISTERED AGENTS ] -->
+					<?php
+                    $user = $_SESSION["username"];
+					$sql = "SELECT * FROM bookings WHERE username ='$user' AND status = 'PENDING COMPLETION APPROVAL' ";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+						$names = $row[1]." ".$row[2];
+						$loca = $row[6].", ".$row[5];
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; // E ID 
+							echo '<td>'.$row[4]." At ".$row[5].'</td> '; //names
+							echo '<td>'.$row[6]." At ".$row[7].'</td> '; //email
+							echo '<td>'.$row[3].'</td> '; //telno
+							echo '<td>'.$row[2].'</td> '; //id number
+                            echo '<td>'.$row[10].'</td> '; //location
+                            echo '<td>
+									<a href="approvecompletion.php?id='.$row[0].'"><strong><button type="button" class="btn btn-success">Approve Completion</button>
+								</td> '; //location
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+                </table>
+
+                <br>
+                <h3>Completed</h3>
+                <p>Completed and confirmed bookings</p>
+                <table class="table table-stipped">
+                    <thead>
+                        <tr>
+                            <th sope="col">bid</th>
+                            <th scope="col">Bk. day</th>
+                            <th scope="col"> Perefered Date & Time</th>
+                            <th scope="col"> Style </th>
+                            <th scope="col"> Salonist </th>
+                            <th scope="col"> Status</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+					<!-- [ LOOP THE REGISTERED AGENTS ] -->
+					<?php
+                    $user = $_SESSION["username"];
+					$sql = "SELECT * FROM bookings WHERE username ='$user' AND status = 'COMPLETE' ";
 					$result = mysqli_query($db, $sql);
 					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
 					{	

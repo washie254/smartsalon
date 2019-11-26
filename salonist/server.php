@@ -230,6 +230,27 @@
 	}
 
 	//MARK AS BOOKING COMPLETED 
+	if (isset($_POST['mcomplete'])) {
 
-	
+		$remarks= $_POST['remarks'];
+		$bid = $_POST['bid'];
+		$stat = 'PENDING COMPLETION APPROVAL';
+
+		// form validation: ensure that the form is correctly filled
+		if (empty($bid)) { array_push($errors, "Could not resolve the booking ID"); }
+		
+		if (count($errors) == 0) {
+		  $sql = "UPDATE bookings
+					  SET bookingremarks = '$remarks',
+							status = '$stat'
+						WHERE id='$bid' ";
+		  // execute query
+		  if(mysqli_query($db, $sql)){
+			header('location: requests.php');
+		  }
+		  else{
+			  echo 'some err occurred !!';
+		  }
+		}
+	}
 ?>
