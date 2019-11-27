@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2019 at 10:47 PM
+-- Generation Time: Nov 27, 2019 at 07:33 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -99,6 +99,18 @@ INSERT INTO `haircategories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `proof`
+--
+
+CREATE TABLE `proof` (
+  `int` int(11) NOT NULL,
+  `salonistid` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ratings`
 --
 
@@ -142,17 +154,19 @@ CREATE TABLE `salonist` (
   `lat` float NOT NULL,
   `lng` float NOT NULL,
   `datecreated` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `idimage` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `salonist`
 --
 
-INSERT INTO `salonist` (`id`, `username`, `email`, `password`, `fname`, `lastname`, `salonname`, `category`, `phone`, `location`, `tfrom`, `tto`, `lat`, `lng`, `datecreated`, `status`) VALUES
-(1, 'salonist1', 'salonist1@gmail.com', '4faee54995cf230e56ef5940093be648', 'Mary', 'Njihia', 'MariNje Palor', 'Business', 718610463, 'kamakwa', '08:30:00', '21:30:00', -1.2841, 36.8155, ' 	2019-09-10', 'APPROVED'),
-(2, 'salonist2', 'salonist2@gmail.com', '35374b3727336280d50137890456ac3a', 'Terry', 'Crews', 'TerryHairs', 'Freelance', 744567898, 'Langas', '08:10:00', '21:30:00', -1.27468, 36.8353, '2019-09-12', 'APPROVED'),
-(3, 'salonist3', 'salonist3@gmail.com', 'ba1db6fbd091a4f9ad9b770987f075a9', 'Jane', 'Nyambura ', 'SylishParlor ', 'Both', 744456790, 'Classic, Nyeri ', '07:20:00', '18:30:00', -1.27468, 36.8353, '2019-09-12', 'REJECTED');
+INSERT INTO `salonist` (`id`, `username`, `email`, `password`, `fname`, `lastname`, `salonname`, `category`, `phone`, `location`, `tfrom`, `tto`, `lat`, `lng`, `datecreated`, `status`, `idimage`) VALUES
+(1, 'salonist1', 'salonist1@gmail.com', '4faee54995cf230e56ef5940093be648', 'Mary', 'Njihia', 'MariNje Palor', 'Business', 718610463, 'kamakwa', '08:30:00', '21:30:00', -1.2841, 36.8155, ' 	2019-09-10', 'APPROVED', 'logo.png'),
+(2, 'salonist2', 'salonist2@gmail.com', '35374b3727336280d50137890456ac3a', 'Terry', 'Crews', 'TerryHairs', 'Freelance', 744567898, 'Langas', '08:10:00', '21:30:00', -1.27468, 36.8353, '2019-09-12', 'APPROVED', 'logo.png'),
+(3, 'salonist3', 'salonist3@gmail.com', 'ba1db6fbd091a4f9ad9b770987f075a9', 'Jane', 'Nyambura ', 'SylishParlor ', 'Both', 744456790, 'Classic, Nyeri ', '07:20:00', '18:30:00', -1.27468, 36.8353, '2019-09-12', 'REJECTED', 'maxresdefault.jpg'),
+(4, 'salonist3', 'salonist3@gmail.com', 'ba1db6fbd091a4f9ad9b770987f075a9', '', '', '', '', 0, '', '00:00:00', '00:00:00', 0, 0, '2019-11-27', 'PENDING APPROVAL', 'maxresdefault.jpg');
 
 -- --------------------------------------------------------
 
@@ -225,7 +239,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `telno`, `datecreated`, `fname`, `lname`, `gender`, `lat`, `lng`) VALUES
-(1, 'user1', 'user1@gmail.com', '24c9e15e52afc47c225b757e7bee1f9d', '0744454565', '2019-09-12', 'jannet', 'arika ', 'Male', 0, 0);
+(1, 'user1', 'user1@gmail.com', '24c9e15e52afc47c225b757e7bee1f9d', '0744454565', '2019-09-12', 'jannet', 'arika ', 'Male', -1.25583, 36.8566);
 
 --
 -- Indexes for dumped tables
@@ -248,6 +262,12 @@ ALTER TABLE `bookings`
 --
 ALTER TABLE `haircategories`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `proof`
+--
+ALTER TABLE `proof`
+  ADD PRIMARY KEY (`int`);
 
 --
 -- Indexes for table `ratings`
@@ -302,6 +322,12 @@ ALTER TABLE `haircategories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `proof`
+--
+ALTER TABLE `proof`
+  MODIFY `int` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
@@ -311,7 +337,7 @@ ALTER TABLE `ratings`
 -- AUTO_INCREMENT for table `salonist`
 --
 ALTER TABLE `salonist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `styles`
