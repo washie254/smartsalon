@@ -267,12 +267,10 @@ if (isset($_GET['logout'])) {
                     </div>
 
 
-                    <div class="form-group">
-                        <!-- <input type="text" id="lat" name="lat" style="opacity: 0;" />
-                        <input type="text" id="lng" name="lng" style="opacity: 0.2;"/> -->
+                        <input type="text" id="lat" name="lat" style="opacity: 0.4;" readonly/>
+                        <input type="text" id="lng" name="lng" style="opacity: 0.4;" readonly/>
                         <input type="text" id="uid" name="uid" style="opacity: 0;" value="<?=$uid?>"/>
-                    </div>
-
+               
                     <div class="form-group">
                         <div class="col-xs-12">
                             <br>

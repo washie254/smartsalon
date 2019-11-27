@@ -275,7 +275,5 @@
 		header('location: account.php');
 		}
 		header('location: account.php');
-
-		
 	}
 ?>

@@ -81,6 +81,8 @@
 		$gender = mysqli_real_escape_string($db, $_POST['gender']);
 		
 		$userid =mysqli_real_escape_string($db, $_POST['uid']);
+		$lat = mysqli_real_escape_string($db, $_POST['lat']);
+		$lng =mysqli_real_escape_string($db, $_POST['lng']);
 
 		if (empty($fname)) { array_push($errors, "First name is required !"); }
 		if (empty($lname)) { array_push($errors, "Last Name is required !"); }
@@ -116,7 +118,9 @@
 						telno = '$phone',
 						fname = '$fname',
 						lname = '$lname',
-						gender = '$gender'
+						gender = '$gender',
+						lat='$lat',
+						lng='$lng'
 						
 						WHERE id ='$userid'";
 			$result = mysqli_query($db, $query);

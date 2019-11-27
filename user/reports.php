@@ -1,6 +1,6 @@
 <?php 
-	
-session_start(); 
+include('server.php');	
+//session_start(); 
 
 if (!isset($_SESSION['username'])) {
 	$_SESSION['msg'] = "You must log in first";
@@ -101,24 +101,93 @@ if (isset($_GET['logout'])) {
 	<p>Here you can vi
     <!-- Tab links -->
     <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'Activedistributors')">Active Distributors</button>
-    <button class="tablinks" onclick="openCity(event, 'Addagents')">Innactive Distributors</button>
-    <button class="tablinks" onclick="openCity(event, 'Departments')">Distributors</button>
+    <button class="tablinks" onclick="openCity(event, 'Activedistributors')">All Bookings</button>
+    <button class="tablinks" onclick="openCity(event, 'Addagents')">completed Bookings</button>
+    <button class="tablinks" onclick="openCity(event, 'Departments')">Other stuf</button>
     </div>
 
     <!-- Tab content -->
     	<div id="Activedistributors" class="tabcontent">
-			<h3>Active Distributors</h3>
-			<p>the following are the distributors whoes accounts are approved and are active </p>
+			<h3>All your bookings </h3>
+			<p>the following are the bookings that you have done in the system and their status </p>
+			<br>
+			<table class="table table-stiped">
+                    <thead>
+                        <tr>
+                            <th sope="col">bid</th>
+                            <th scope="col">Bk. day</th>
+                            <th scope="col"> Perefered Date & Time</th>
+                            <th scope="col"> Style </th>
+                            <th scope="col"> Salonist </th>
+                            <th scope="col"> Status</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+					<!-- [ LOOP THE REGISTERED AGENTS ] -->
+					<?php
+                    $user = $_SESSION["username"];
+					$sql = "SELECT * FROM bookings WHERE username ='$user' ";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+						$names = $row[1]." ".$row[2];
+						$loca = $row[6].", ".$row[5];
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; // E ID 
+							echo '<td>'.$row[4]." At ".$row[5].'</td> '; //names
+							echo '<td>'.$row[6]." At ".$row[7].'</td> '; //email
+							echo '<td>'.$row[3].'</td> '; //telno
+							echo '<td>'.$row[2].'</td> '; //id number
+							echo '<td>'.$row[10].'</td> '; //location
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+                </table>
 		</div>
 
     	<div id="Addagents" class="tabcontent">
-			<h3>Innactive Distributors</h3>
+			<h3>Completed Bookings</h3>
+			<table class="table table-stipped">
+                    <thead>
+                        <tr>
+                            <th sope="col">bid</th>
+                            <th scope="col">Bk. day</th>
+                            <th scope="col"> Perefered Date & Time</th>
+                            <th scope="col"> Style </th>
+                            <th scope="col"> Salonist </th>
+                            <th scope="col"> Status</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+					<!-- [ LOOP THE REGISTERED AGENTS ] -->
+					<?php
+                    $user = $_SESSION["username"];
+					$sql = "SELECT * FROM bookings WHERE username ='$user' AND status='COMpLETE' ";
+					$result = mysqli_query($db, $sql);
+					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
+					{	
+						$names = $row[1]." ".$row[2];
+						$loca = $row[6].", ".$row[5];
+						echo '<tr>';
+							echo '<td>'.$row[0].'</td> '; // E ID 
+							echo '<td>'.$row[4]." At ".$row[5].'</td> '; //names
+							echo '<td>'.$row[6]." At ".$row[7].'</td> '; //email
+							echo '<td>'.$row[3].'</td> '; //telno
+							echo '<td>'.$row[2].'</td> '; //id number
+							echo '<td>'.$row[10].'</td> '; //location
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+                </table>
 
     	</div>
 
 		<div id="Departments" class="tabcontent">
-			<h3>Distributors Summary | Highlights</h3>
+			<h3>Some other Highlighst </h3>
 			
 		</div> 
     <div>

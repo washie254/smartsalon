@@ -111,6 +111,7 @@ if (isset($_GET['logout'])) {
 					<th scope="col">Names</th>
 					<th scope="col">location</th>
 					<th scope="col">Date Created</th>
+					<th scope="col">ID IMAGE</th>
 					<th scope="col">Action</th>
 					</tr>
 				</thead>
@@ -122,13 +123,13 @@ if (isset($_GET['logout'])) {
 					$result = mysqli_query($db, $sql);
 					while($row = mysqli_fetch_array($result, MYSQLI_NUM))
 					{	
-					
 						echo '<tr>';
 							echo '<td>'.$row[0].'</td> '; // l ID 
 							echo '<td>'.$row[1].'</td> '; //MEM ID
 							echo '<td>'.$row[4].' '.$row[5].'</td> '; //MEM USERNAME
 							echo '<td>'.$row[9].'<br>LatLng:'.$row[12].','.$row[13].'</td> '; //Amount
 							echo '<td>'.$row[14].'</td> '; //DATE APPLIED
+							echo '<td><img src="../salonist/IDS/'.$row[16].'" style="width:160px; height:140px;"></td> '; //DATE APPLIED
 							echo '<td><a href="approves.php?id='.$row[0] .'"><button class="btn btn-success">APPROVE</button></a> 
 									<a href="rejects.php?id=' . $row[0] . '"><button class="btn btn-danger">REJECT</button></a></td>'; //Purpose
 						echo '</tr>';
