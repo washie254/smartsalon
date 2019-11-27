@@ -141,7 +141,7 @@ if (isset($_GET['logout'])) {
 
 						echo '<tr>';
 							echo '<td>'.$row[0].'</td> '; // E ID 
-							echo '<td>'.$row[1].'</td> '; // E ID 
+							echo '<td>'.$row[1].'</td>'; // E ID 
 							echo '<td>'.$row[4]." At ".$row[5].'</td> '; //names
 							echo '<td>'.$row[6]." At ".$row[7].'</td> '; //email
 							echo '<td>'.$styname.'</td> '; //telno
@@ -150,6 +150,7 @@ if (isset($_GET['logout'])) {
 							echo '<td>
 									<a href="approve.php?id='.$row[0].'"><strong><button type="button" class="btn btn-success">Approve</button>
 									<a href="reject.php?id='.$row[0].'"><strong><button type="button" class="btn btn-danger">Reject</button>
+									<a href="viewuser.php?id='.$row[1].'"><strong><button type="button" class="btn btn-primary">View User</button>
 								</td> '; //location
 						echo '</tr>';
 					}
